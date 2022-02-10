@@ -1,0 +1,231 @@
+float rotX, rotY,rotZ,cameraX, cameraY, cameraZ,ZZZ;
+float vx, vy, x, y,z,vz;
+float Fx,Fy,Fz;
+void setup(){
+    size(1200, 800, OPENGL);
+  cameraX =1500;
+  cameraY = 2000;
+  cameraZ =500;
+  camera(cameraX, cameraY, cameraZ, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0);
+x = 100;
+  y = 100;
+  z=100;
+  vx = 0;
+  vy = 0;
+  Fx = 0;
+  Fy = 2;
+}
+
+
+
+void draw(){  
+  translate(width/2, height/2);
+pushMatrix();
+  background(0);
+  vy = Fy+vy;
+  
+  x = x + vx;
+  y = y + vy;
+  
+  if (x > 800){
+    x = 800;
+    vx = -vx;
+  }
+  
+  if (x < -800){
+    x = -800;
+    vx = -vx;
+  }
+  
+  
+    if (z>800){
+    z=800;
+    vz =-vz;
+  }
+  
+  if (z<-800){
+    z=-800;
+        vz =-vz;
+  }
+  
+  if (y>2000){
+    y = 2000;
+    vy = -vy;
+ }
+    if (800-y==ZZZ-500){
+      if(76400>=(x-(750-rotY)*cos(rotZ))*(x-(750-rotY)*cos(rotZ))){
+      if(76400>=(z-(750-rotY)*sin(rotZ))*(z-(750-rotY)*sin(rotZ))){
+    vy = -2*vy;
+
+      }
+    }
+    }
+
+
+    
+
+ translate(x, z,-(y-800));
+ 
+   fill(#FF6F03);
+sphere(100);
+  
+popMatrix();
+
+
+   smooth();
+   lights();
+   
+    
+
+   noStroke();
+   
+
+
+   rotateZ(-rotZ); 
+    fill(#FF1F03);
+     translate(0,0,-500+ZZZ);
+pillar(1500, 50 , 50);   
+
+
+
+   fill(#FF9F03);
+   noStroke();
+   
+   translate(0, 0);
+rotateX(PI/2);
+pillar(80000, 50 , 50);
+
+   
+
+
+ noStroke();
+  translate(0,40,740);
+
+rotateZ(PI/2);
+    fill(#FF1F03);
+pillar(1500,10 , 10);
+
+
+ noStroke();
+   
+   translate(0,rotX,rotY);
+rotateX(PI/2);
+rotateZ(PI/2);
+   fill(#FF9F03);
+pillar(20, 280 ,280);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+void pillar(float length, float radius1 , float radius2){
+
+float x,y,z;
+pushMatrix();
+beginShape(TRIANGLE_FAN);
+y = -length / 2;
+vertex(0, y, 0);
+for(int deg = 0; deg <= 360; deg = deg + 10){
+x = cos(radians(deg)) * radius1;
+z = sin(radians(deg)) * radius1;
+vertex(x, y, z);
+}
+endShape();            
+beginShape(TRIANGLE_FAN);
+y = length / 2;
+vertex(0, y, 0);
+for(int deg = 0; deg <= 360; deg = deg + 10){
+x = cos(radians(deg)) * radius2;
+z = sin(radians(deg)) * radius2;
+vertex(x, y, z);
+}
+endShape();
+
+beginShape(TRIANGLE_STRIP);
+for(int deg =0; deg <= 360; deg = deg + 5){
+x = cos(radians(deg)) * radius1;
+y = -length / 2;
+z = sin(radians(deg)) * radius1;
+vertex(x, y, z);
+x = cos(radians(deg)) * radius2;
+y = length / 2;
+z = sin(radians(deg)) * radius2;
+vertex(x, y, z);
+}
+endShape();
+popMatrix();
+}
+void keyPressed(){
+if (keyPressed){
+if((key == 'h') || (key == 'H')){
+      if (rotY==0){
+  if (rotX>-750){
+ rotX -=150;
+}
+}
+}
+}
+if (keyPressed){
+if((key == 'g') || (key == 'G')){
+   if (rotY==0){
+  if (rotX<750){
+ rotX +=150;
+}
+}
+}
+}
+if (keyPressed){
+if((key == 'b') || (key == 'B')){
+    if (rotX==0){
+  if (rotY>-1400){
+ rotY-=150;
+ 
+}
+}
+}
+}
+if (keyPressed){
+if((key == 't') || (key == 'T')){
+   if (ZZZ<2000){
+
+ZZZ+=150;
+}
+}
+}
+if (keyPressed){
+if((key == 'f') || (key == 'F')){
+   if (ZZZ>-1500){
+
+ZZZ-=150;
+}
+}
+}
+if (keyPressed){
+if((key == 'Y') || (key == 'y')){
+    if (rotX==0){
+  if (rotY<0){
+ rotY+=150;
+}
+}
+}
+}
+}
+void mouseDragged(){
+    rotZ -= (mouseY - pmouseY) * 0.01;
+
+}
+void mouseClicked() {
+  Fx=10;
+  vx = Fx+vx;
+
+  Fz=-10*Fz;
+  vz=Fz+vz;
+}
